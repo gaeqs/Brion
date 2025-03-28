@@ -22,7 +22,7 @@
 #include "log.h"
 
 #include <bitset>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/tokenizer.hpp>
 #include <fstream>
 
@@ -48,9 +48,7 @@ class Circuit::Impl
 public:
     explicit Impl(const std::string& source)
     {
-        namespace fs = boost::filesystem;
-        fs::path path = source;
-        const std::string ext = fs::extension(path);
+        const std::string ext = std::filesystem::path(source).extension().string();
         if (ext != ".mvd" && ext != ".mvd2")
             throw std::runtime_error(
                 "Expecting mvd file format for circuit file " + source);

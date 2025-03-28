@@ -11,7 +11,7 @@ project(Brion VERSION 3.3.10)
 set(Brion_VERSION_ABI 10)
 
 # Enforce C++14 standard
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Allow per target specification of build output folder

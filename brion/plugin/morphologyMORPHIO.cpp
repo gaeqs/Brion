@@ -23,7 +23,7 @@
 
 #include "../pluginLibrary.h"
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 #include <algorithm>
 
@@ -40,8 +40,8 @@ namespace
 {
 std::string GetFileExtension(const std::string& path)
 {
-    namespace fs = boost::filesystem;
-    std::string ext = fs::extension(fs::path(path));
+    namespace fs = std::filesystem;
+    std::string ext = fs::path(path).extension().string();
     std::transform(ext.begin(), ext.end(), ext.begin(),
         [](unsigned char c){ return std::tolower(c); });
     return ext;

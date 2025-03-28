@@ -24,6 +24,7 @@
 
 #include <map>
 #include <sstream>
+#include <cstdint>
 
 namespace brion
 {

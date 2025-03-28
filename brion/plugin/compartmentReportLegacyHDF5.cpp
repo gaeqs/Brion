@@ -28,7 +28,7 @@
 
 #include <brion/version.h>
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/scoped_array.hpp>
 
 #include <highfive/H5Utility.hpp>
@@ -122,7 +122,7 @@ CompartmentReportLegacyHDF5::CompartmentReportLegacyHDF5(
     , _timestep(0)
     , _comps(0)
     , _path(initData.getURI().getPath())
-    , _reportName(boost::filesystem::basename(_path))
+    , _reportName(_path.filename().string())
     , _file(new HighFive::File(
           openFile(initData.getURI().getPath(), initData.getAccessMode())))
 {

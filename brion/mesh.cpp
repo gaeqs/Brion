@@ -21,7 +21,7 @@
 #include "detail/meshBinary.h"
 #include "log.h"
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 #define ASSERT_WRITE    \
     if (!_impl->_write) \
@@ -32,9 +32,9 @@ namespace brion
 Mesh::Mesh(const std::string& source)
     : _impl(0)
 {
-    namespace fs = boost::filesystem;
+    namespace fs = std::filesystem;
     fs::path path(source);
-    const std::string& ext = fs::extension(path);
+    std::string ext = path.extension().string();
     if (ext == ".bin")
     {
         _impl = new detail::MeshBinary(source);
@@ -43,11 +43,10 @@ Mesh::Mesh(const std::string& source)
     BRION_THROW(source + " not a valid mesh file")
 }
 
-Mesh::Mesh(const std::string& source, const MeshFormat format,
-           const bool overwrite, const MeshVersion version)
+Mesh::Mesh(const std::string& source, const MeshFormat format, const bool overwrite, const MeshVersion version)
     : _impl(0)
 {
-    if (!overwrite && boost::filesystem::exists(source))
+    if (!overwrite && exists(std::filesystem::path(source)))
         BRION_THROW("Cannot override existing file " + source)
 
     switch (format)
@@ -133,20 +132,17 @@ size_t Mesh::getNumStructures(const MeshStructure type) const
     return _impl->getNumStructures(type);
 }
 
-Vector3fsPtr Mesh::readStructureVertices(const MeshStructure type,
-                                         const size_t index) const
+Vector3fsPtr Mesh::readStructureVertices(const MeshStructure type, const size_t index) const
 {
     return _impl->readStructureVertices(type, index);
 }
 
-uint32_tsPtr Mesh::readStructureTriangles(const MeshStructure type,
-                                          const size_t index) const
+uint32_tsPtr Mesh::readStructureTriangles(const MeshStructure type, const size_t index) const
 {
     return _impl->readStructureTriangles(type, index);
 }
 
-uint32_tsPtr Mesh::readStructureTriStrip(const MeshStructure type,
-                                         const size_t index) const
+uint32_tsPtr Mesh::readStructureTriStrip(const MeshStructure type, const size_t index) const
 {
     return _impl->readStructureTriStrip(type, index);
 }
@@ -199,23 +195,20 @@ void Mesh::writeNormals(const Vector3fs& normals)
     _impl->writeNormals(normals);
 }
 
-void Mesh::writeStructureVertices(const Vector3fs& vertices,
-                                  const MeshStructure type, const size_t index)
+void Mesh::writeStructureVertices(const Vector3fs& vertices, const MeshStructure type, const size_t index)
 {
     ASSERT_WRITE;
     _impl->writeStructureVertices(vertices, type, index);
 }
 
-void Mesh::writeStructureTriangles(const uint32_ts& triangles,
-                                   const MeshStructure type, const size_t index)
+void Mesh::writeStructureTriangles(const uint32_ts& triangles, const MeshStructure type, const size_t index)
 
 {
     ASSERT_WRITE;
     _impl->writeStructureTriangles(triangles, type, index);
 }
 
-void Mesh::writeStructureTriStrip(const uint32_ts& tristrip,
-                                  const MeshStructure type, const size_t index)
+void Mesh::writeStructureTriStrip(const uint32_ts& tristrip, const MeshStructure type, const size_t index)
 
 {
     ASSERT_WRITE;
