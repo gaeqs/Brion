@@ -419,7 +419,7 @@ bool gidsFromNumpy(const boost::python::object& object,
     }
     std::stringstream msg;
     PyArray_Descr* desc = PyArray_DESCR(array);
-    msg << "Cannot convert numpy array of type " << desc->kind << desc->elsize
+    msg << "Cannot convert numpy array of type " << desc->kind
         << " to GID set" << std::endl;
     PyErr_SetString(PyExc_ValueError, msg.str().c_str());
     boost::python::throw_error_already_set();
@@ -492,8 +492,7 @@ glm::quat fromNumpy(const bp::object& o)
     {
         std::stringstream msg;
         PyArray_Descr* desc = PyArray_DESCR(array);
-        msg << "Cannot convert numpy array of type " << desc->kind
-            << desc->elsize << " into quat" << std::endl;
+        msg << "Cannot convert numpy array of type " << desc->kind << " into quat" << std::endl;
         PyErr_SetString(PyExc_ValueError, msg.str().c_str());
         bp::throw_error_already_set();
     }
@@ -541,8 +540,7 @@ glm::mat4 fromNumpy(const bp::object& o)
     {
         std::stringstream msg;
         PyArray_Descr* desc = PyArray_DESCR(array);
-        msg << "Cannot convert numpy array of type " << desc->kind
-            << desc->elsize << " into Matrix4f" << std::endl;
+        msg << "Cannot convert numpy array of type " << desc->kind << " into Matrix4f" << std::endl;
         PyErr_SetString(PyExc_ValueError, msg.str().c_str());
         bp::throw_error_already_set();
     }
