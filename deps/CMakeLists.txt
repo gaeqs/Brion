@@ -57,10 +57,12 @@ if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
         FetchContent_MakeAvailable(libsonata)
     endif()
 
+    message("Forcing EXTLIB_FROM_SUBMODULES TO BE ON")
     set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
     set(SONATA_TESTS OFF CACHE BOOL "" FORCE)
     SET(SONATA_CXX_WARNINGS OFF CACHE BOOL "" FORCE)
     set(CMAKE_CXX_STANDARD 14 CACHE STRING "" FORCE)
+    message("Result: EXTLIB_FROM_SUBMODULES=${EXTLIB_FROM_SUBMODULES}")
 
     add_subdirectory(libsonata)
     add_library(sonata::sonata_shared ALIAS sonata_shared)
