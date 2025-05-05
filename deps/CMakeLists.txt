@@ -57,7 +57,7 @@ if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
         FetchContent_MakeAvailable(libsonata)
     endif()
 
-    set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
+    set(EXTLIB_FROM_SUBMODULES OFF CACHE BOOL "" FORCE)
     set(SONATA_TESTS OFF CACHE BOOL "" FORCE)
     SET(SONATA_CXX_WARNINGS OFF CACHE BOOL "" FORCE)
     set(CMAKE_CXX_STANDARD 14 CACHE STRING "" FORCE)
