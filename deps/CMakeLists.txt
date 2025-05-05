@@ -44,18 +44,6 @@ endif()
 # libsonata
 # =============================================================================
 if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
-    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libsonata")
-        message(STATUS "Downloading libsonata from submodules")
-        FetchContent_Declare(
-            libsonata
-            GIT_REPOSITORY https://github.com/BlueBrain/libsonata.git
-            GIT_TAG v0.1.22
-            GIT_SHALLOW ON
-            GIT_SUBMODULES_RECURSE ON
-            SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libsonata
-        )
-        FetchContent_MakeAvailable(libsonata)
-    endif()
 
     message("Forcing EXTLIB_FROM_SUBMODULES TO BE ON")
     set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
@@ -64,7 +52,16 @@ if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
     set(CMAKE_CXX_STANDARD 14 CACHE STRING "" FORCE)
     message("Result: EXTLIB_FROM_SUBMODULES=${EXTLIB_FROM_SUBMODULES}")
 
-    add_subdirectory(libsonata)
+    FetchContent_Declare(
+            libsonata
+            GIT_REPOSITORY https://github.com/BlueBrain/libsonata.git
+            GIT_TAG v0.1.22
+            GIT_SHALLOW ON
+            GIT_SUBMODULES_RECURSE ON
+            SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libsonata
+    )
+    FetchContent_MakeAvailable(libsonata)
+
     add_library(sonata::sonata_shared ALIAS sonata_shared)
 endif()
 
