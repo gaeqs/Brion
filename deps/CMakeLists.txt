@@ -19,7 +19,7 @@ if(NOT glm_FOUND AND NOT TARGET glm)
             GIT_SUBMODULES_RECURSE OFF
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glm
         )
-        FetchContent_MakeAvailable(glm)
+        FetchContent_Populate(glm)
     endif()
 
      add_library(glm INTERFACE)
@@ -43,28 +43,28 @@ endif()
 # =============================================================================
 # libsonata
 # =============================================================================
-if(NOT sonata_FOUND AND NOT TARGET sonata_shared)
-
-    message("Forcing EXTLIB_FROM_SUBMODULES TO BE ON")
-    set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
-    set(SONATA_TESTS OFF CACHE BOOL "" FORCE)
-    SET(SONATA_CXX_WARNINGS OFF CACHE BOOL "" FORCE)
-    set(CMAKE_CXX_STANDARD 14 CACHE STRING "" FORCE)
-    message("Result: EXTLIB_FROM_SUBMODULES=${EXTLIB_FROM_SUBMODULES}")
-
-    FetchContent_Declare(
+if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/libsonata")
+        message(STATUS "Downloading libsonata from submodules")
+        FetchContent_Declare(
             libsonata
             GIT_REPOSITORY https://github.com/BlueBrain/libsonata.git
             GIT_TAG v0.1.22
             GIT_SHALLOW ON
             GIT_SUBMODULES_RECURSE ON
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libsonata
-    )
-    FetchContent_MakeAvailable(libsonata)
+        )
+        FetchContent_Populate(libsonata)
+    endif()
 
+    set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
+    set(SONATA_TESTS OFF CACHE BOOL "" FORCE)
+    SET(SONATA_CXX_WARNINGS OFF CACHE BOOL "" FORCE)
+    set(CMAKE_CXX_STANDARD 14 CACHE STRING "" FORCE)
+
+    add_subdirectory(libsonata)
+    add_library(sonata::sonata_shared ALIAS sonata_shared)
 endif()
-add_library(sonata::sonata_shared ALIAS sonata_shared)
-
 
 # =============================================================================
 # HighFive
@@ -80,7 +80,7 @@ if(NOT HighFive_FOUND AND NOT TARGET HighFive)
             GIT_SUBMODULES_RECURSE OFF
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/HighFive
         )
-        FetchContent_MakeAvailable(HighFive)
+        FetchContent_Populate(HighFive)
     endif()
 
     add_subdirectory(HighFive)
@@ -100,7 +100,7 @@ if(NOT MorphIO_FOUND AND NOT TARGET MorphIO::morphio)
             GIT_SUBMODULES_RECURSE ON
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/MorphIO
         )
-        FetchContent_MakeAvailable(MorphIO)
+        FetchContent_Populate(MorphIO)
     endif()
 
     set(BUILD_BINDINGS OFF CACHE BOOL "" FORCE)
@@ -147,7 +147,7 @@ if(NOT MVDTool_FOUND AND NOT TARGET MVDTool)
             GIT_SUBMODULES_RECURSE OFF
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/MVDTool
         )
-        FetchContent_MakeAvailable(MVDTool)
+        FetchContent_Populate(MVDTool)
     endif()
 
     add_library(MVDTool INTERFACE)
