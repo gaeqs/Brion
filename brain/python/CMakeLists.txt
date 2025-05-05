@@ -8,6 +8,10 @@
 
 # Cannot compile python bindings if no boost python or python interpreter is found
 
+if(NOT BRION_BUILD_PYTHON_BINDINGS)
+    return()
+endif ()
+
 if(NOT Boost_PYTHON3_LIBRARY OR
     NOT PYTHON_EXECUTABLE OR NOT NUMPY_FOUND)
     if(BRION_REQUIRE_PYTHON)
