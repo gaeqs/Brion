@@ -19,7 +19,7 @@ if(NOT glm_FOUND AND NOT TARGET glm)
             GIT_SUBMODULES_RECURSE OFF
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glm
         )
-        FetchContent_Populate(glm)
+        FetchContent_MakeAvailable(glm)
     endif()
 
      add_library(glm INTERFACE)
@@ -54,7 +54,7 @@ if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
             GIT_SUBMODULES_RECURSE ON
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libsonata
         )
-        FetchContent_Populate(libsonata)
+        FetchContent_MakeAvailable(libsonata)
     endif()
 
     set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
@@ -80,7 +80,7 @@ if(NOT HighFive_FOUND AND NOT TARGET HighFive)
             GIT_SUBMODULES_RECURSE OFF
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/HighFive
         )
-        FetchContent_Populate(HighFive)
+        FetchContent_MakeAvailable(HighFive)
     endif()
 
     add_subdirectory(HighFive)
@@ -100,7 +100,7 @@ if(NOT MorphIO_FOUND AND NOT TARGET MorphIO::morphio)
             GIT_SUBMODULES_RECURSE ON
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/MorphIO
         )
-        FetchContent_Populate(MorphIO)
+        FetchContent_MakeAvailable(MorphIO)
     endif()
 
     set(BUILD_BINDINGS OFF CACHE BOOL "" FORCE)
@@ -147,7 +147,7 @@ if(NOT MVDTool_FOUND AND NOT TARGET MVDTool)
             GIT_SUBMODULES_RECURSE OFF
             SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/MVDTool
         )
-        FetchContent_Populate(MVDTool)
+        FetchContent_MakeAvailable(MVDTool)
     endif()
 
     add_library(MVDTool INTERFACE)
