@@ -43,7 +43,7 @@ endif()
 # =============================================================================
 # libsonata
 # =============================================================================
-if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
+if(NOT sonata_FOUND AND NOT TARGET sonata_shared)
 
     message("Forcing EXTLIB_FROM_SUBMODULES TO BE ON")
     set(EXTLIB_FROM_SUBMODULES ON CACHE BOOL "" FORCE)
@@ -62,8 +62,9 @@ if(NOT sonata_FOUND AND NOT TARGET sonata::sonata_shared)
     )
     FetchContent_MakeAvailable(libsonata)
 
-    add_library(sonata::sonata_shared ALIAS sonata_shared)
 endif()
+add_library(sonata::sonata_shared ALIAS sonata_shared)
+
 
 # =============================================================================
 # HighFive
