@@ -86,8 +86,7 @@ set(BRION_PORT_DEPENDS sphinx py-lxml)
 set(Boost_USE_STATIC_RUNTIME OFF)
 set(Boost_USE_STATIC_LIBS OFF)
 set(BUILD_SHARED_LIBS ON)
-find_package(Boost REQUIRED COMPONENTS
-  date_time filesystem iostreams program_options regex system unit_test_framework)
+find_package(Boost REQUIRED COMPONENTS date_time filesystem iostreams program_options regex unit_test_framework)
 # Choose the appropiate version of boost python based on the available python
 include(ChoosePython)
 find_package(Boost COMPONENTS python${USE_BOOST_PYTHON_VERSION})
